@@ -17,14 +17,18 @@ def dt_parse(dt_timestamp, timezone_offset):
 
 
 def fetch_info():
-    weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=minutely&&units=metric&appid={API_KEY}"
+    weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=minutely&units=metric&appid={API_KEY}"
     geo_url = f"http://api.openweathermap.org/geo/1.0/reverse?lat={LAT}&lon={LON}&limit=2&appid={API_KEY}"
-    weather_resp = requests.get(weather_url, timeout=10)
-    geo_resp = requests.get(geo_url, timeout=10)
-    weather_resp.raise_for_status()
-    geo_resp.raise_for_status()
-    resp = {"weather": weather_resp.json(), "geo": geo_resp.json()}
-    return resp
+    try:
+        weather_resp = requests.get(weather_url, timeout=10)
+        geo_resp = requests.get(geo_url, timeout=10)
+        weather_resp.raise_for_status()
+        geo_resp.raise_for_status()
+        resp = {"weather": weather_resp.json(), "geo": geo_resp.json()}
+        return resp
+    except requests.exceptions.RequestException as err:
+        print("Error when trying to fetch weather data.", err)
+        return None
 
 
 def format_resp(resp_json):
