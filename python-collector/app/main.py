@@ -1,12 +1,15 @@
 from collector import fetch_info, format_resp
-import json
+from sender import message_sender
 
 
 def main():
-    raw_data = fetch_info()
-    formatted_data = format_resp(raw_data)
-    print(json.dumps(formatted_data, indent=4, ensure_ascii=False))
+    resp = fetch_info()
+    if resp is None:
+        print("Could not fetch the data. Ending the process...")
+        return
+    formatted_resp = format_resp(resp)
+    message_sender(formatted_resp)
 
 
 if __name__ == "__main__":
-    main() #ensures that the file only runs with the correct command
+    main()  # ensures that the file only runs with the correct command

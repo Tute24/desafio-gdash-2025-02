@@ -9,6 +9,7 @@ RABBIT_MQ_PORT = int(os.getenv("RABBIT_MQ_PORT", 5672))
 RABBIT_MQ_HOST = os.getenv("RABBIT_MQ_HOST", "localhost")
 RABBIT_MQ_QUEUE = os.getenv("RABBIT_MQ_QUEUE", "data_queue")
 
+
 def message_sender(payload: dict):
     connection = None
     try:
