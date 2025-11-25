@@ -1,9 +1,10 @@
 import os
+import time
 import requests
 import json
 import pika
 import datetime
-import time
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,31 +16,33 @@ RABBIT_MQ_PORT = int(os.getenv("RABBIT_MQ_PORT", 5672))
 RABBIT_MQ_HOST = os.getenv("RABBIT_MQ_HOST", "localhost")
 RABBIT_MQ_QUEUE = os.getenv("RABBIT_MQ_QUEUE", "data_queue")
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+)  # this lib is more appropriated for seeing logs on docker than just using print, and I elected to use it because I couldn't see the logs even if the app was running ok
+
 
 def dt_parse(dt_timestamp, timezone_offset):
     dt_utc = datetime.datetime.fromtimestamp(dt_timestamp, tz=datetime.timezone.utc)
     dt_local = dt_utc + datetime.timedelta(seconds=timezone_offset)
-    return dt_local
+    return dt_local  # made this function to convert the date from the weather API to normal date
 
 
 def fetch_info():
     weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=minutely&units=metric&appid={API_KEY}"
-    geo_url = f"http://api.openweathermap.org/geo/1.0/reverse?lat={LAT}&lon={LON}&limit=2&appid={API_KEY}"
     try:
         weather_resp = requests.get(weather_url, timeout=10)
-        geo_resp = requests.get(geo_url, timeout=10)
         weather_resp.raise_for_status()
-        geo_resp.raise_for_status()
-        resp = {"weather": weather_resp.json(), "geo": geo_resp.json()}
+        resp = {"weather": weather_resp.json()}
         return resp
-    except requests.exceptions.RequestException as err:
-        print("Error when trying to fetch weather data.", err)
-        return None
+    except requests.exceptions.RequestException:
+        logging.error("Error when trying to fetch weather data.", exc_info=True)
+        return None  # retrieves the data from the openweather API and returns None if it fails
 
 
+##The following function works as a data organizer
 def format_resp(resp_json):
     main = resp_json.get("weather", {})
-    geo = resp_json.get("geo", [{}])
     current = main.get("current", {})
     current_dt = current.get("dt", 0)
     timezone_offset = main.get("timezone_offset", 0)
@@ -103,20 +106,16 @@ def format_resp(resp_json):
             "hourly": hourly_payload,
             "alerts": main.get("alerts", [{}]),
             "geo": {
-                "name": geo[0].get("name", None),
-                "country": geo[0].get("country", None),
-                "state": geo[0].get("state", None),
+                "name": "Belo Horizonte",
+                "country": "BR",
+                "state": "Minas Gerais",
             },
         }
     }
     return payload
 
 
-RABBIT_MQ_PORT = int(os.getenv("RABBIT_MQ_PORT", 5672))
-RABBIT_MQ_HOST = os.getenv("RABBIT_MQ_HOST", "localhost")
-RABBIT_MQ_QUEUE = os.getenv("RABBIT_MQ_QUEUE", "data_queue")
-
-
+# the message publisher that connects with RabbitMQ
 def message_sender(payload: dict):
     connection = None
     try:
@@ -131,26 +130,42 @@ def message_sender(payload: dict):
             body=json.dumps(payload),
             properties=pika.BasicProperties(delivery_mode=2),
         )
-        print(f"Message successfully sent to {RABBIT_MQ_QUEUE}.")
-    except Exception as err:
-        print("An error occured when sending the message.", err)
+        logging.info(f"Message successfully sent to {RABBIT_MQ_QUEUE}.")
+    except Exception:
+        logging.error("An error occured when sending the message.", exc_info=True)
     finally:
         try:
             if connection and connection.is_open:
                 connection.close()
-        except Exception as err:
-            print("Error at the end of the process when closing the connection.", err)
+        except Exception:
+            logging.error(
+                "Error at the end of the process when closing the connection.",
+                exc_info=True,
+            )
 
 
+# The whole process (Fetching weather data at openweather -> organizing the retrieved data -> sending the data via message to RabbitMQ occurs every 10 minutes)
 def main():
+    logging.info("Starting to send the collected data...")
     while True:
-        resp = fetch_info()
-        if resp is None:
-            print("Could not fetch the data. Ending the process...")
-            return
-        formatted_resp = format_resp(resp)
-        message_sender(formatted_resp)
-        print("Data successfully fetched and sent to the queue as a message.")
+        try:
+            now = datetime.datetime.now()
+            resp = fetch_info()
+            if resp is None:
+                logging.info(
+                    "Could not fetch the most recente data. Retrying in 10 minutes..."
+                )
+                time.sleep(600)
+                continue
+            data_to_send = format_resp(resp)
+            logging.info("Data alredy fetched and ready to be sent!")
+            message_sender(data_to_send)
+            logging.info(
+                f"Data sent to Queue at {now}. The next data will be sent in 10 minutes."
+            )
+        except Exception:
+            logging.error("There was an error:", exc_info=True)
+
         time.sleep(600)
 
 
