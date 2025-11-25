@@ -1,21 +1,4 @@
 venv/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.sqlite3
-
 .env
-.env.local
-
-# VSCode
-.vscode/
-*.code-workspace
-
-# Sistema operacional
-.DS_Store
-Thumbs.db
-
-# Git
-.git/
-.gitignore
