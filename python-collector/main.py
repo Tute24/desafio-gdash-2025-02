@@ -144,7 +144,7 @@ def message_sender(payload: dict):
             )
 
 
-# The whole process (Fetching weather data at openweather -> organizing the retrieved data -> sending the data via message to RabbitMQ occurs every 10 minutes)
+# The whole process (Fetching weather data at openweather -> organizing the retrieved data -> sending the data via message to RabbitMQ occurs every 60 minutes)
 def main():
     logging.info("Starting to send the collected data...")
     while True:
@@ -153,20 +153,20 @@ def main():
             resp = fetch_info()
             if resp is None:
                 logging.info(
-                    "Could not fetch the most recente data. Retrying in 10 minutes..."
+                    "Could not fetch the most recente data. Retrying in 1 hour..."
                 )
-                time.sleep(600)
+                time.sleep(3600)
                 continue
             data_to_send = format_resp(resp)
             logging.info("Data alredy fetched and ready to be sent!")
             message_sender(data_to_send)
             logging.info(
-                f"Data sent to Queue at {now}. The next data will be sent in 10 minutes."
+                f"Data sent to Queue at {now}. The next data will be sent in 1 hour."
             )
         except Exception:
             logging.error("There was an error:", exc_info=True)
 
-        time.sleep(600)
+        time.sleep(3600)
 
 
 if __name__ == "__main__":
