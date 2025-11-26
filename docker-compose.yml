@@ -28,5 +28,15 @@ services:
       rabbitmq:
         condition: service_healthy
 
+  worker:
+    build:
+      context: ./go-worker
+      dockerfile: Dockerfile
+    env_file:
+      - ./go-worker/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
 volumes:
   rabbitmq_data:
