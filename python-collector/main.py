@@ -104,7 +104,6 @@ def format_resp(resp_json):
             },
             "daily": daily_payload,
             "hourly": hourly_payload,
-            "alerts": main.get("alerts", [{}]),
             "geo": {
                 "name": "Belo Horizonte",
                 "country": "BR",

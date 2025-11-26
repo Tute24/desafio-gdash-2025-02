@@ -25,6 +25,21 @@ services:
     env_file:
       - ./python-collector/.env
     depends_on:
+      worker:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ./go-worker
+      dockerfile: Dockerfile
+    env_file:
+      - ./go-worker/.env
+    healthcheck:
+      test: ["CMD", "echo", "ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    depends_on:
       rabbitmq:
         condition: service_healthy
 
