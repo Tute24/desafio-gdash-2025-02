@@ -1,24 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-const userSchema: Schema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-  },
-  { timestamps: true },
-);
-//schema for the users collection
+@Schema({ timestamps: true })
+export class User extends Document {
+  @Prop({ required: true })
+  name: string;
 
-export const User = mongoose.model('User', userSchema);
-//creates the user model, allowing to make operations like create, find, etc. Also creates the "users" collection
+  @Prop({ required: true, unique: true })
+  email: string;
+
+  @Prop({ required: true })
+  password: string;
+}
+
+export const UserSchema = SchemaFactory.createForClass(User);
