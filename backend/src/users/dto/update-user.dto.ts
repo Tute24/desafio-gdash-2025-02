@@ -1,5 +1,25 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/auth/dto/create-user.dto';
+import {
+  IsEmail,
+  IsOptional,
+  IsString,
+  IsStrongPassword,
+  ValidateIf,
+} from 'class-validator';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @ValidateIf((dto) => dto.password !== undefined)
+  @IsStrongPassword()
+  password?: string;
+
+  @ValidateIf((dto) => dto.password !== undefined)
+  @IsStrongPassword()
+  confirmPassword?: string;
+}
