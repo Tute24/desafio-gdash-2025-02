@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -48,7 +51,7 @@ func processMessage(message amqp091.Delivery) {
 
 	err = postData(weatherData)
 	if err != nil {
-		log.Printf("Weather data could be sent to the backend")
+		log.Printf("Weather data couldn't be sent to the backend")
 		err = message.Nack(false, true)
 		if err != nil {
 			log.Printf("Nack failed:%v", err)
@@ -67,7 +70,36 @@ func processMessage(message amqp091.Delivery) {
 }
 
 func postData(data types.WeatherPayload) error {
-	log.Printf("Received data for %s-%s/%s", data.Weather.Geo.Name, data.Weather.Geo.State, data.Weather.Geo.Country)
+	url := fmt.Sprintf("%s/weather/register", "http://host.docker.internal:3002")
+
+	jsonBody, err := json.Marshal(data)
+	if err != nil {
+		log.Fatalf("error serializing payload: %v", err)
+	}
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
+	if err != nil {
+		log.Fatalf("error creating POST request: %v", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		 log.Fatalf("error making POST request: %v", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		responseBody, _ := io.ReadAll(resp.Body)
+		log.Fatalf("backend returned status %d: %s", resp.StatusCode, string(responseBody))
+	}
+
+	log.Printf("Weather data successfully sent to backend: %s", resp.Status)
 	return nil
 }
 
