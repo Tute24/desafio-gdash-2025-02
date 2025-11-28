@@ -29,7 +29,7 @@ def dt_parse(dt_timestamp, timezone_offset):
 
 
 def fetch_info():
-    weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=minutely&units=metric&appid={API_KEY}"
+    weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=minutely,hourly&units=metric&appid={API_KEY}"
     try:
         weather_resp = requests.get(weather_url, timeout=10)
         weather_resp.raise_for_status()
@@ -49,8 +49,6 @@ def format_resp(resp_json):
     current_weather = current.get("weather", [])
     daily_list = main.get("daily", [])
     daily_payload = []
-    hourly_list = main.get("hourly", [])
-    hourly_payload = []
 
     for day in daily_list:
         weather_info = day.get("weather", [{}])
@@ -71,24 +69,6 @@ def format_resp(resp_json):
             }
         )
 
-    for hour in hourly_list:
-        weather_info = hour.get("weather", [{}])
-        hourly_payload.append(
-            {
-                "dt": dt_parse(hour.get("dt", 0), timezone_offset).strftime(
-                    "%d-%m-%Y %H:%M:%S"
-                ),
-                "temp": hour.get("temp", None),
-                "humidity": hour.get("humidity", None),
-                "wind_speed": hour.get("wind_speed", None),
-                "pop": hour.get("pop", 0),
-                "main": weather_info[0].get("main", None) if weather_info else None,
-                "description": weather_info[0].get("description", None)
-                if weather_info
-                else None,
-            }
-        )
-
     payload = {
         "weather": {
             "current": {
@@ -103,7 +83,6 @@ def format_resp(resp_json):
                 "description": current_weather[0].get("description", None),
             },
             "daily": daily_payload,
-            "hourly": hourly_payload,
             "geo": {
                 "name": "Belo Horizonte",
                 "country": "BR",
