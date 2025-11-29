@@ -8,9 +8,8 @@ import {
 import { Type } from 'class-transformer';
 
 export class CurrentWeatherDto {
-  @IsOptional()
   @IsString()
-  dt?: string;
+  dt: string;
 
   @IsOptional()
   @IsNumber()
@@ -38,9 +37,8 @@ export class CurrentWeatherDto {
 }
 
 export class DailyForecastDto {
-  @IsOptional()
   @IsString()
-  dt?: string;
+  dt: string;
 
   @IsOptional()
   @IsString()
@@ -80,39 +78,32 @@ export class DailyForecastDto {
 }
 
 export class GeoInfoDto {
-  @IsOptional()
   @IsString()
-  name?: string;
+  name: string;
 
-  @IsOptional()
   @IsString()
-  country?: string;
+  country: string;
 
-  @IsOptional()
   @IsString()
-  state?: string;
+  state: string;
 }
 
 export class WeatherDataDto {
-  @IsOptional()
   @ValidateNested()
   @Type(() => CurrentWeatherDto)
   current: CurrentWeatherDto;
 
-  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => DailyForecastDto)
   daily: DailyForecastDto[];
 
-  @IsOptional()
   @ValidateNested()
   @Type(() => GeoInfoDto)
   geo: GeoInfoDto;
 }
 
 export class RegisterWeatherDto {
-  @IsOptional()
   @ValidateNested()
   @Type(() => WeatherDataDto)
   weather: WeatherDataDto;
