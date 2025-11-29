@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { RegisterWeatherDto } from './dto/weather.dto';
+import type { Response } from 'express';
 
 @Controller('weather')
 export class weatherController {
@@ -14,5 +15,10 @@ export class weatherController {
   @Get('get')
   getWeatherData() {
     return this.weatherService.getWeatherData();
+  }
+
+  @Get('xlsx')
+  weatherXlsx(@Res() res: Response) {
+    return this.weatherService.weatherXlsx(res);
   }
 }
