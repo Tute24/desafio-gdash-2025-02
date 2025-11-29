@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { WeatherModule } from './weather/weather.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { AIModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     UsersModule,
     WeatherModule,
+    AIModule,
   ],
 })
 export class AppModule {}
