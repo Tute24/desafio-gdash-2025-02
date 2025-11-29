@@ -21,4 +21,9 @@ export class weatherController {
   weatherXlsx(@Res() res: Response) {
     return this.weatherService.weatherXlsx(res);
   }
+
+  @Get('csv')
+  weatherCsv(@Res() res: Response) {
+    return this.weatherService.weatherCsv(res);
+  }
 }

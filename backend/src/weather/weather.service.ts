@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { RegisterWeatherDto } from './dto/weather.dto';
 import * as exceljs from 'exceljs';
 import type { Response } from 'express';
+import Parser from '@json2csv/plainjs/Parser.js';
 
 @Injectable()
 export class WeatherService {
@@ -110,5 +111,25 @@ export class WeatherService {
     res.setHeader('Content-Disposition', 'attachment; filename=weather.xlsx');
 
     return res.send(buffer);
+  }
+
+  async weatherCsv(@Res() res: Response) {
+    const weatherData = await this.weatherModel.find();
+    if (weatherData.length === 0)
+      throw new NotFoundException(
+        `Couldn't find the weather data on the database.`,
+      );
+
+    try {
+      const parser = new Parser();
+      const csv = parser.parse(weatherData[0].weather);
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename=weather.csv');
+      res.send(csv);
+    } catch (err) {
+      throw new InternalServerErrorException(
+        `Couldn't create csv file: ${err}`,
+      );
+    }
   }
 }
