@@ -70,7 +70,9 @@ func processMessage(message amqp091.Delivery) {
 }
 
 func postData(data types.WeatherPayload) error {
-	url := fmt.Sprintf("%s/weather/register", "http://host.docker.internal:3002")
+	apiHost := os.Getenv("API_HOST")
+	apiPort := string(os.Getenv("API_PORT"))
+	url := fmt.Sprintf("http://%s:%s/weather/register", apiHost, apiPort)
 
 	jsonBody, err := json.Marshal(data)
 	if err != nil {
@@ -90,7 +92,7 @@ func postData(data types.WeatherPayload) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		 log.Fatalf("error making POST request: %v", err)
+		log.Fatalf("error making POST request: %v", err)
 	}
 	defer resp.Body.Close()
 
