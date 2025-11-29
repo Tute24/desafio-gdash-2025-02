@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,6 +16,20 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
+
+  async getUsers() {
+    const users = await this.userModel.find();
+
+    if (!users)
+      throw new InternalServerErrorException(
+        `Couldn't retrieve the users from the database.`,
+      );
+
+    return {
+      message: 'Users retrieved successfully.',
+      users,
+    };
+  }
 
   async deleteUser(email: string) {
     const user = await this.userModel.findOne({ email });
