@@ -7,7 +7,6 @@ type WeatherPayload struct {
 type WeatherData struct {
 	Current CurrentWeather   `json:"current"`
 	Daily   []DailyForecast  `json:"daily"`
-	Hourly  []HourlyForecast `json:"hourly"`
 	Geo     GeoInfo          `json:"geo"`
 }
 
@@ -29,16 +28,6 @@ type DailyForecast struct {
 	Humidity    *float64 `json:"humidity"`
 	WindSpeed   *float64 `json:"wind_speed"`
 	Rain        *float64 `json:"rain"`
-	Pop         *float64 `json:"pop"`
-	Main        *string  `json:"main"`
-	Description *string  `json:"description"`
-}
-
-type HourlyForecast struct {
-	Dt          string   `json:"dt"`
-	Temp        *float64 `json:"temp"`
-	Humidity    *float64 `json:"humidity"`
-	WindSpeed   *float64 `json:"wind_speed"`
 	Pop         *float64 `json:"pop"`
 	Main        *string  `json:"main"`
 	Description *string  `json:"description"`
