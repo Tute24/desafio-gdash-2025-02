@@ -1,21 +1,17 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import type { UserStore } from '@/types/user-store-types'
+import type { AuthStore } from '@/types/auth-store-types'
 
-export const useUserStore = create<UserStore>()(
+export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
-      id: null,
-      name: null,
-      email: null,
+      token: null,
       hasHydrated: false,
 
-      setId: (id) => set({ id }),
-      setName: (name) => set({ name }),
-      setEmail: (email) => set({ email }),
+      setToken: (token) => set({ token }),
     }),
     {
-      name: 'user-store',
+      name: 'auth-store',
       storage: createJSONStorage(() => sessionStorage),
       onRehydrateStorage: () => (state) => {
         if (state) state.hasHydrated = true
