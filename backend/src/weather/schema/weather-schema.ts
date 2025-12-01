@@ -78,7 +78,7 @@ export class RegisterWeather {
   geo: GeoInfo;
 }
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, versionKey: false })
 export class Weather extends Document {
   @Prop({ type: RegisterWeather })
   weather: RegisterWeather;
