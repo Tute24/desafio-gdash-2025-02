@@ -8,24 +8,27 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type z from 'zod'
 import { registerSchema } from '@/schemas/register-schema'
 import { registerRequest } from '@/api/auth/register-request'
+import { useNavigate } from 'react-router-dom'
 
 export type registerType = z.infer<typeof registerSchema>
 
 export default function RegisterForm() {
+  const navigate = useNavigate()
   const statusMessage = useGeneralStore((store) => store.statusMessage)
   const isLoading = useGeneralStore((store) => store.isLoading)
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<registerType>({
     resolver: zodResolver(registerSchema),
   })
 
   const onSubmit: SubmitHandler<registerType> = async (data) => {
-    await registerRequest(data)
-    reset()
+    const response = await registerRequest(data)
+    if (response.success) {
+      navigate('portal/dashboard')
+    }
   }
   return (
     <div className="flex flex-col items-center justify-center m-auto pt-10">

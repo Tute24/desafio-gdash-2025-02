@@ -15,9 +15,11 @@ import type z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/schemas/sign-in-schema'
 import { signInRequest } from '@/api/auth/sign-in-request'
+import { useNavigate } from 'react-router-dom'
 
 export type signInType = z.infer<typeof signInSchema>
 export default function SignInForm() {
+  const navigate = useNavigate()
   const statusMessage = useGeneralStore((store) => store.statusMessage)
   const isLoading = useGeneralStore((store) => store.isLoading)
   const {
@@ -29,7 +31,10 @@ export default function SignInForm() {
   })
 
   const onSubmit: SubmitHandler<signInType> = async (data) => {
-    await signInRequest(data)
+    const response = await signInRequest(data)
+    if (response.success) {
+      navigate('/portal/dashboard')
+    }
   }
   return (
     <div className="flex flex-col items-center justify-center m-auto pt-10">
