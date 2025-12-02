@@ -18,7 +18,8 @@ import { signInRequest } from '@/api/auth/sign-in-request'
 
 export type signInType = z.infer<typeof signInSchema>
 export default function SignInForm() {
-  const { statusMessage, isLoading } = useGeneralStore.getState()
+  const statusMessage = useGeneralStore((store) => store.statusMessage)
+  const isLoading = useGeneralStore((store) => store.isLoading)
   const {
     register,
     handleSubmit,

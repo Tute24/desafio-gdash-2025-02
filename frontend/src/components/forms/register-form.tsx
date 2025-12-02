@@ -12,7 +12,8 @@ import { registerRequest } from '@/api/auth/register-request'
 export type registerType = z.infer<typeof registerSchema>
 
 export default function RegisterForm() {
-  const { statusMessage, isLoading } = useGeneralStore.getState()
+  const statusMessage = useGeneralStore((store) => store.statusMessage)
+  const isLoading = useGeneralStore((store) => store.isLoading)
   const {
     register,
     handleSubmit,
