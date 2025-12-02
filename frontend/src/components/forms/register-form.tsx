@@ -7,11 +7,12 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type z from 'zod'
 import { registerSchema } from '@/schemas/register-schema'
+import { registerRequest } from '@/api/auth/register-request'
 
 export type registerType = z.infer<typeof registerSchema>
 
 export default function RegisterForm() {
-  const statusMessage = useGeneralStore((store) => store.statusMessage)
+  const { statusMessage, isLoading } = useGeneralStore.getState()
   const {
     register,
     handleSubmit,
@@ -21,8 +22,8 @@ export default function RegisterForm() {
     resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit: SubmitHandler<registerType> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<registerType> = async (data) => {
+    await registerRequest(data)
     reset()
   }
   return (
@@ -110,7 +111,7 @@ export default function RegisterForm() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting' : 'Register'}
+                  {isSubmitting || isLoading ? 'Submitting' : 'Register'}
                 </Button>
                 <span className="text-red-600 text-sm wrap-break-words pt-2">
                   {statusMessage}
