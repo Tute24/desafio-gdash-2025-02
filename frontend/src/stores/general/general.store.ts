@@ -1,4 +1,4 @@
-import type { GeneralStore } from '@/types/general-store-types'
+import type { GeneralStore } from '@/types/store-types/general-store-types'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 

@@ -1,4 +1,4 @@
-import type { Weatherstore } from '@/types/weather-store-types'
+import type { Weatherstore } from '@/types/store-types/weather-store-types'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 

@@ -14,10 +14,11 @@ import { Link } from 'react-router-dom'
 import type z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/schemas/sign-in-schema'
+import { signInRequest } from '@/api/auth/sign-in-request'
 
 export type signInType = z.infer<typeof signInSchema>
 export default function SignInForm() {
-  const statusMessage = useGeneralStore((store) => store.statusMessage)
+  const { statusMessage, isLoading } = useGeneralStore.getState()
   const {
     register,
     handleSubmit,
@@ -26,8 +27,8 @@ export default function SignInForm() {
     resolver: zodResolver(signInSchema),
   })
 
-  const onSubmit: SubmitHandler<signInType> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<signInType> = async (data) => {
+    await signInRequest(data)
   }
   return (
     <div className="flex flex-col items-center justify-center m-auto pt-10">
@@ -85,7 +86,7 @@ export default function SignInForm() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting' : 'Sign In'}
+                  {isSubmitting || isLoading ? 'Submitting' : 'Sign In'}
                 </Button>
                 <span className="text-red-600 text-sm pt-2">
                   {statusMessage}
