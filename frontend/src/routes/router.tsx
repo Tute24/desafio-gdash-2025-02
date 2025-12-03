@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { PrivateRoute } from './PrivateRoute'
 import DashboardPage from '@/pages/weather/dashboard/Dashboard'
 import { PublicRoute } from './PublicRoute'
+import UserProfilePage from '@/pages/user/profile/UserProfile'
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,9 @@ export const router = createBrowserRouter([
   {
     path: '/portal',
     element: <PrivateRoute />,
-    children: [{ path: 'dashboard', element: <DashboardPage /> }],
+    children: [
+      { path: 'dashboard', element: <DashboardPage /> },
+      { path: 'user-profile', element: <UserProfilePage /> },
+    ],
   },
 ])
