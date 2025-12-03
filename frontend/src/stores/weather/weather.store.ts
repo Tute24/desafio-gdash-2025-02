@@ -5,13 +5,13 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 export const useWeatherStore = create<Weatherstore>()(
   persist(
     (set) => ({
-      currentWeather: null,
-      dailyWeather: [],
+      current: null,
+      daily: [],
       geo: null,
       hasHydrated: false,
 
-      setCurrentWeather: (currentWeather) => set({ currentWeather }),
-      setDailyWeather: (dailyWeather) => set({ dailyWeather }),
+      setCurrent: (current) => set({ current }),
+      setDaily: (daily) => set({ daily }),
       setGeo: (geo) => set({ geo }),
     }),
     {

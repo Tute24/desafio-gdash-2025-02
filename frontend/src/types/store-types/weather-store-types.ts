@@ -28,15 +28,15 @@ export type currentWeatherType = {
 }
 
 export type WeatherStoreState = {
-  currentWeather: currentWeatherType | null
-  dailyWeather: dailyWeatherType[]
+  current: currentWeatherType | null
+  daily: dailyWeatherType[]
   geo: geoType | null
   hasHydrated: boolean
 }
 
 export type WeatherStoreAction = {
-  setCurrentWeather: (currentWeather: currentWeatherType | null) => void
-  setDailyWeather: (dailyWeather: dailyWeatherType[]) => void
+  setCurrent: (current: currentWeatherType | null) => void
+  setDaily: (daily: dailyWeatherType[]) => void
   setGeo: (geo: geoType | null) => void
 }
 
