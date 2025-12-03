@@ -10,6 +10,7 @@ import {
   DialogFooter,
   DialogClose,
 } from '../ui/dialog'
+import { useGeneralStore } from '@/stores/general/general.store'
 
 export interface ModalComponentProps {
   guideText: string
@@ -22,6 +23,7 @@ export function ModalComponent({
   dialogText,
   requestHandler,
 }: ModalComponentProps) {
+  const isLoading = useGeneralStore((store) => store.isLoading)
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,7 +41,11 @@ export function ModalComponent({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant={'default'} className="cursor-pointer">
+            <Button
+              variant={'default'}
+              className="cursor-pointer"
+              disabled={isLoading}
+            >
               Cancel
             </Button>
           </DialogClose>
@@ -47,6 +53,7 @@ export function ModalComponent({
             variant={'destructive'}
             onClick={requestHandler}
             className="cursor-pointer"
+            disabled={isLoading}
           >
             {guideText}
           </Button>
