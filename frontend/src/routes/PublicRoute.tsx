@@ -1,3 +1,4 @@
+import UnLoggedHeader from '@/components/headers/unlogged-header'
 import { useAuthStore } from '@/stores/auth/auth.store'
 import { Navigate, Outlet } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
@@ -17,5 +18,9 @@ export function PublicRoute() {
     return <Navigate to="/portal/dashboard" replace />
   }
 
-  return <Outlet />
+  return (
+    <>
+      <UnLoggedHeader /> <Outlet />
+    </>
+  )
 }

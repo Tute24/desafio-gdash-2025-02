@@ -1,3 +1,4 @@
+import LoggedHeader from '@/components/headers/logged-header'
 import { useAuthStore } from '@/stores/auth/auth.store'
 import { Navigate, Outlet } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
@@ -23,6 +24,10 @@ export function PrivateRoute() {
     ) {
       return <Navigate to="/portal/dashboard" replace />
     }
-    return <Outlet />
+    return (
+      <>
+        <LoggedHeader /> <Outlet />
+      </>
+    )
   }
 }
