@@ -9,7 +9,7 @@ import { useGeneralStore } from '@/stores/general/general.store'
 export async function signInRequest(signInData: signInType) {
   const { setToken } = useAuthStore.getState()
   const { setId, setName, setEmail } = useUserStore.getState()
-  const { setIsLoading } = useGeneralStore.getState()
+  const { setIsLoading, setStatusMessage } = useGeneralStore.getState()
   try {
     setIsLoading(true)
     const response = await AxiosApi({
@@ -30,7 +30,7 @@ export async function signInRequest(signInData: signInType) {
 
     return { success: false }
   } catch (error) {
-    RequestErrorHandler(error)
+    RequestErrorHandler({ error, setStatusMessage })
     return { success: false }
   } finally {
     setIsLoading(false)

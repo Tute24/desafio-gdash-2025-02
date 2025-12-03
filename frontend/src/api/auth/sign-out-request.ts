@@ -27,7 +27,7 @@ export async function signOutRequest() {
 
     return { success: false }
   } catch (error) {
-    RequestErrorHandler(error)
+    RequestErrorHandler({ error })
     return { success: false }
   } finally {
     setIsLoading(false)

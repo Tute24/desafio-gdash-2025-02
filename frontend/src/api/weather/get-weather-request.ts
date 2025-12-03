@@ -25,7 +25,7 @@ export async function getWeatherRequest() {
 
     return { success: false }
   } catch (error) {
-    RequestErrorHandler(error)
+    RequestErrorHandler({ error })
     return { success: false }
   } finally {
     setIsLoading(false)

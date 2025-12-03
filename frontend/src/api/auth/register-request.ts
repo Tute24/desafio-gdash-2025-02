@@ -9,7 +9,7 @@ import { useGeneralStore } from '@/stores/general/general.store'
 export async function registerRequest(registerData: registerType) {
   const { setToken } = useAuthStore.getState()
   const { setId, setName, setEmail } = useUserStore.getState()
-  const { setIsLoading } = useGeneralStore.getState()
+  const { setIsLoading, setStatusMessage } = useGeneralStore.getState()
 
   try {
     setIsLoading(true)
@@ -31,7 +31,7 @@ export async function registerRequest(registerData: registerType) {
 
     return { success: false }
   } catch (error) {
-    RequestErrorHandler(error)
+    RequestErrorHandler({ error, setStatusMessage })
     return { success: false }
   } finally {
     setIsLoading(false)

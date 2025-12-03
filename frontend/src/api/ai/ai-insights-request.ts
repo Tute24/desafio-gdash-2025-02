@@ -21,7 +21,8 @@ export async function getAiInsights() {
 
     return { success: false }
   } catch (error) {
-    RequestErrorHandler(error)
+    setAiInsights(`Couldn't generate the insights.`)
+    RequestErrorHandler({ error })
     return { success: false }
   } finally {
     setIsLoading(false)
