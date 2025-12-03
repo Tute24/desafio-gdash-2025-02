@@ -25,6 +25,7 @@ export async function signInRequest(signInData: signInType) {
       setName(responseData.user.name)
       setEmail(responseData.user.email)
       console.log(responseData.message)
+      setStatusMessage('')
       return { success: true }
     }
 

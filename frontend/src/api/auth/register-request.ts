@@ -26,6 +26,7 @@ export async function registerRequest(registerData: registerType) {
       setName(responseData.user.name)
       setEmail(responseData.user.email)
       console.log(responseData.message)
+      setStatusMessage('')
       return { success: true }
     }
 
