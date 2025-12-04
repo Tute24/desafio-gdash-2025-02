@@ -1,9 +1,10 @@
 import { useWeatherStore } from '@/stores/weather/weather.store'
 import { CurrentWeatherCard } from './cards/current-weather-card'
 import { dateSlashParse } from '@/utils/date-slash-parse'
-import { FilesDownloader } from './files-downloader'
+import { FilesDownloader } from './downloader/files-downloader'
 import { DailyWeatherCard } from './cards/daily-weather-card'
 import { TemperatureChart } from './chart/temperature-chart'
+import { InsightsComponent } from './insights/insights-component'
 
 export default function DashboardMain() {
   const current = useWeatherStore((store) => store.current)
@@ -26,7 +27,10 @@ export default function DashboardMain() {
           <TemperatureChart daily={daily} geo={geo!} />
         </div>
       </div>
-      <FilesDownloader />
+      <div className="flex flex-col gap-10 justify-center items-center text-center pb-5">
+        <InsightsComponent />
+        <FilesDownloader />
+      </div>
     </>
   )
 }

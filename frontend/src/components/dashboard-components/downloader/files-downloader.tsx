@@ -1,5 +1,5 @@
 import { getFile } from '@/api/weather/get-file-request'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { Download } from 'lucide-react'
 
 export function FilesDownloader() {
