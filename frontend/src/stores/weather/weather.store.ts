@@ -13,6 +13,7 @@ export const useWeatherStore = create<Weatherstore>()(
       setCurrent: (current) => set({ current }),
       setDaily: (daily) => set({ daily }),
       setGeo: (geo) => set({ geo }),
+      reset: () => set({ current: null, daily: [], geo: null }),
     }),
     {
       name: 'weather-store',

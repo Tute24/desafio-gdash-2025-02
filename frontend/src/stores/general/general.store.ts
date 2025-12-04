@@ -13,6 +13,12 @@ export const useGeneralStore = create<GeneralStore>()(
       setStatusMessage: (statusMessage) => set({ statusMessage }),
       setAiInsights: (aiInsights) => set({ aiInsights }),
       setIsLoading: (isLoading) => set({ isLoading }),
+      reset: () =>
+        set({
+          statusMessage: null,
+          aiInsights: null,
+          isLoading: false,
+        }),
     }),
     {
       name: 'general-store',

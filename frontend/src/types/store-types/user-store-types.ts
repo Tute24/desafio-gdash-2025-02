@@ -9,6 +9,7 @@ export type UserStoreAction = {
   setId: (id: string | null) => void
   setName: (name: string | null) => void
   setEmail: (email: string | null) => void
+  reset: () => void
 }
 
 export type UserStore = UserStoreState & UserStoreAction

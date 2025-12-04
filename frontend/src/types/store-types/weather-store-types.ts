@@ -38,6 +38,7 @@ export type WeatherStoreAction = {
   setCurrent: (current: currentWeatherType | null) => void
   setDaily: (daily: dailyWeatherType[]) => void
   setGeo: (geo: geoType | null) => void
+  reset: () => void
 }
 
 export type Weatherstore = WeatherStoreState & WeatherStoreAction

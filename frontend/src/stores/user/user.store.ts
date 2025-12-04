@@ -13,6 +13,7 @@ export const useUserStore = create<UserStore>()(
       setId: (id) => set({ id }),
       setName: (name) => set({ name }),
       setEmail: (email) => set({ email }),
+      reset: () => set({ id: null, name: null, email: null }),
     }),
     {
       name: 'user-store',
