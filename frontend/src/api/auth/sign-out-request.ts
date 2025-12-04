@@ -3,11 +3,13 @@ import RequestErrorHandler from '../request-error-handler'
 import { useAuthStore } from '@/stores/auth/auth.store'
 import { useUserStore } from '@/stores/user/user.store'
 import { useGeneralStore } from '@/stores/general/general.store'
+import { useWeatherStore } from '@/stores/weather/weather.store'
 
 export async function signOutRequest() {
   const { setToken } = useAuthStore.getState()
-  const { setId, setName, setEmail } = useUserStore.getState()
-  const { setIsLoading } = useGeneralStore.getState()
+  const resetUser = useUserStore.getState().reset
+  const { setIsLoading, reset } = useGeneralStore.getState()
+  const resetWeather = useWeatherStore.getState().reset
   try {
     setIsLoading(true)
     const response = await AxiosApi({
@@ -18,11 +20,11 @@ export async function signOutRequest() {
     if (response.status === 201) {
       const responseData = response.data as { message: string }
       setToken(null)
-      setId(null)
-      setName(null)
-      setEmail(null)
+      resetUser()
+      resetWeather()
+      reset() // reset general store
       console.log(responseData.message)
-      return { success: true }
+      return { success: true, message: responseData.message }
     }
 
     return { success: false }

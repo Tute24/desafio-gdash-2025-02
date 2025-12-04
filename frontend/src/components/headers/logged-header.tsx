@@ -18,7 +18,10 @@ export default function LoggedHeader() {
     const response = await signOutRequest()
 
     if (response.success) {
+      window.alert(response.message)
       navigate('/')
+    } else {
+      window.alert(`Couldn't sign out successfully.`)
     }
   }
   return (
