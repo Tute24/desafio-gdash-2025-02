@@ -99,7 +99,7 @@ export default function SignInForm() {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 items-center font-inter">
-          <p className="text-lg text-stone-700">
+          <p className="text-md sm:text-lg text-stone-700">
             Don't have an account?{' '}
             <Link to="/register">
               <span className="cursor-pointer font-bold hover:underline hover:text-cyan-700">

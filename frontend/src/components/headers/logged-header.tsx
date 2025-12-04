@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { Menu, User } from 'lucide-react'
+import { LogOut, Menu, User } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function LoggedHeader() {
@@ -44,6 +44,14 @@ export default function LoggedHeader() {
               guideText="Sign Out"
               dialogText="Sign Out"
               requestHandler={signOutHandler}
+              buttonLayout={
+                <Button variant={'ghost'} className="cursor-pointer">
+                  <LogOut className="text-cyan-700" size={30} />
+                  <div className="text-cyan-700 font-semibold text-lg">
+                    SignOut
+                  </div>
+                </Button>
+              }
             />
           </div>
           <div className="block sm:hidden">
@@ -74,6 +82,14 @@ export default function LoggedHeader() {
                     guideText="Sign Out"
                     dialogText="Sign Out"
                     requestHandler={signOutHandler}
+                    buttonLayout={
+                      <Button variant={'ghost'} className="cursor-pointer">
+                        <LogOut className="text-cyan-700" size={30} />
+                        <div className="text-cyan-700 font-semibold text-lg">
+                          SignOut
+                        </div>
+                      </Button>
+                    }
                   />
                 </DropdownMenuItem>
               </DropdownMenuContent>

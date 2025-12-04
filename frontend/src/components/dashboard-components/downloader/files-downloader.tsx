@@ -10,7 +10,7 @@ export function FilesDownloader() {
     }
   }
   return (
-    <div className="flex flex-col gap-5 max-w-[250px] border-2 rounded-2xl border-cyan-200 ml-5 py-5 sm:px-2 font-inter text-center">
+    <div className="flex flex-col gap-5 max-w-[250px] border-2 rounded-2xl border-cyan-200 py-5 sm:px-2 font-inter text-center">
       <h2 className="text-xs sm:text-sm font-semibold">
         You can export the weather data by clicking on the buttons below:
       </h2>

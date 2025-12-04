@@ -1,4 +1,4 @@
-import { LogOut } from 'lucide-react'
+// import { LogOut } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
   Dialog,
@@ -16,22 +16,19 @@ export interface ModalComponentProps {
   guideText: string
   dialogText: string
   requestHandler: () => void
+  buttonLayout: React.ReactNode
 }
 
 export function ModalComponent({
   guideText,
   dialogText,
   requestHandler,
+  buttonLayout,
 }: ModalComponentProps) {
   const isLoading = useGeneralStore((store) => store.isLoading)
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant={'ghost'} className="cursor-pointer">
-          <LogOut className="text-cyan-700" size={30} />
-          <div className="text-cyan-700 font-semibold text-lg">{guideText}</div>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{buttonLayout}</DialogTrigger>
       <DialogContent className="max-w-[420px] sm:max-w-[360px]">
         <DialogHeader>
           <DialogTitle>{guideText}</DialogTitle>
