@@ -1,4 +1,4 @@
-export type SignInAndRegisterResponse = {
+export type SignInRegisterUpdateResponse = {
   message: string
   token: string
   user: {

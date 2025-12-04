@@ -3,7 +3,7 @@ import { AxiosApi } from '../axios-api'
 import RequestErrorHandler from '../request-error-handler'
 import { useAuthStore } from '@/stores/auth/auth.store'
 import { useUserStore } from '@/stores/user/user.store'
-import type { SignInAndRegisterResponse } from '@/types/request-types/sign-in-register-types'
+import type { SignInRegisterUpdateResponse } from '@/types/request-types/sign-in-register-update-types'
 import { useGeneralStore } from '@/stores/general/general.store'
 
 export async function signInRequest(signInData: signInType) {
@@ -19,7 +19,7 @@ export async function signInRequest(signInData: signInType) {
     })
 
     if (response.status === 201) {
-      const responseData = response.data as SignInAndRegisterResponse
+      const responseData = response.data as SignInRegisterUpdateResponse
       setToken(responseData.token)
       setId(responseData.user.id)
       setName(responseData.user.name)
