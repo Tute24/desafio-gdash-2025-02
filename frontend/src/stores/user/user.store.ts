@@ -8,12 +8,14 @@ export const useUserStore = create<UserStore>()(
       id: null,
       name: null,
       email: null,
+      users: [],
       hasHydrated: false,
 
       setId: (id) => set({ id }),
       setName: (name) => set({ name }),
       setEmail: (email) => set({ email }),
-      reset: () => set({ id: null, name: null, email: null }),
+      setUsers: (users) => set({ users }),
+      reset: () => set({ id: null, name: null, email: null, users: [] }),
     }),
     {
       name: 'user-store',
