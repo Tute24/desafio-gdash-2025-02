@@ -77,6 +77,7 @@ export class UsersService {
           {
             sub: user._id.toString(),
             email: body.email,
+            role: user.role,
           },
           secretKey,
           { expiresIn: '1d' },

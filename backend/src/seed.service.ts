@@ -33,6 +33,7 @@ export class SeedService {
           ? process.env.STANDARD_USER_NAME
           : 'user',
         password: passwordHash,
+        role: 'admin',
       });
       if (!newStandardUser)
         throw new InternalServerErrorException(

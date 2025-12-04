@@ -5,6 +5,8 @@ import { WeatherModule } from './weather/weather.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AIModule } from './ai/ai.module';
+import { RolesGuard } from './auth/guards/role.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 const mongoURI = process.env.MONGO_URI
   ? process.env.MONGO_URI
@@ -19,6 +21,12 @@ const mongoURI = process.env.MONGO_URI
     UsersModule,
     WeatherModule,
     AIModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
   ],
 })
 export class AppModule {}

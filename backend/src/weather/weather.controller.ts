@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { RegisterWeatherDto } from './dto/weather.dto';
 import type { Response } from 'express';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('weather')
 export class weatherController {

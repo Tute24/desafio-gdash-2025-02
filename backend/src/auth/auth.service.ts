@@ -49,6 +49,7 @@ export class AuthService {
         {
           sub: newUser._id.toString(),
           email: newUser.email,
+          role: newUser.role,
         },
         secretKey,
         { expiresIn: '1d' },
@@ -61,6 +62,7 @@ export class AuthService {
           id: newUser._id,
           name: newUser.name,
           email: newUser.email,
+          role: newUser.role,
         },
       };
     } else {
@@ -83,6 +85,7 @@ export class AuthService {
         {
           sub: user._id.toString(),
           email: user.email,
+          role: user.role,
         },
         secretKey,
         { expiresIn: '1d' },
@@ -95,6 +98,7 @@ export class AuthService {
           id: user._id,
           name: user.name,
           email: user.email,
+          role: user.role,
         },
       };
     } else {
