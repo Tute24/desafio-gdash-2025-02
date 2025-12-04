@@ -11,11 +11,11 @@ import {
   DialogFooter,
   DialogClose,
 } from '../ui/dialog'
-import { useGeneralStore } from '@/stores/general/general.store'
 
 export interface ModalComponentProps {
   guideText: string
   dialogText: string
+  isLoading: boolean
   requestHandler: () => void
   buttonLayout: React.ReactNode
 }
@@ -23,10 +23,10 @@ export interface ModalComponentProps {
 export function ModalComponent({
   guideText,
   dialogText,
+  isLoading,
   requestHandler,
   buttonLayout,
 }: ModalComponentProps) {
-  const isLoading = useGeneralStore((store) => store.isLoading)
   return (
     <Dialog>
       <DialogTrigger asChild>{buttonLayout}</DialogTrigger>

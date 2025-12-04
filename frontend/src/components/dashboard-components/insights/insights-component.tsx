@@ -3,10 +3,23 @@ import { LoadingSpinner } from '@/components/spinners/loading-spinner'
 import { Button } from '@/components/ui/button'
 import { useGeneralStore } from '@/stores/general/general.store'
 import { Lightbulb } from 'lucide-react'
+import { useState } from 'react'
 
 export function InsightsComponent() {
+  const [isLoading, setIsLoading] = useState(false)
   const aiInsights = useGeneralStore((store) => store.aiInsights)
-  const isLoading = useGeneralStore((store) => store.isLoading)
+
+  async function getInsightsHandler() {
+    try {
+      setIsLoading(true)
+      const response = await getAiInsights()
+      if (!response.success) {
+        window.alert(response.message)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     <div className="flex flex-col gap-5 rounded-2xl p-4 max-w-[360px] min-w-[360px] sm:max-w-[540px] sm:min-w-[450px] font-poppins border-2 border-cyan-200 hover:shadow-md hover:shadow-cyan-700">
       <h2 className="text-xs sm:text-sm font-semibold">
@@ -17,7 +30,7 @@ export function InsightsComponent() {
         <Button
           className="cursor-pointer bg-stone-200"
           variant={'outline'}
-          onClick={getAiInsights}
+          onClick={getInsightsHandler}
           disabled={isLoading}
         >
           {isLoading ? (

@@ -4,9 +4,8 @@ import type { AIInsightsResponse } from '@/types/request-types/ai-insights-types
 import RequestErrorHandler from '../request-error-handler'
 
 export async function getAiInsights() {
-  const { setIsLoading, setAiInsights } = useGeneralStore.getState()
+  const { setAiInsights } = useGeneralStore.getState()
   try {
-    setIsLoading(true)
     const response = await AxiosApi({
       httpMethod: 'get',
       route: '/ai/insights',
@@ -19,12 +18,10 @@ export async function getAiInsights() {
       return { success: true }
     }
 
-    return { success: false }
+    return { success: false, message: `Couldn't generate insights.` }
   } catch (error) {
     setAiInsights(`Couldn't generate the insights.`)
     RequestErrorHandler({ error })
     return { success: false }
-  } finally {
-    setIsLoading(false)
   }
 }

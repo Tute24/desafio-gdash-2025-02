@@ -2,17 +2,24 @@ import { deleteUserRequest } from '@/api/user/delete-user-request'
 import { ModalComponent } from '@/components/modal/modal'
 import { Button } from '@/components/ui/button'
 import { FolderX } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export function DeleteUserComponent() {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   async function deleteUserHandler() {
-    const response = await deleteUserRequest()
-    if (response?.success) {
-      window.alert(response.message)
-      navigate('/', { replace: true })
-    } else {
-      window.alert(`Couldn't delete the user.`)
+    try {
+      setIsLoading(true)
+      const response = await deleteUserRequest()
+      if (response?.success) {
+        window.alert(response.message)
+        navigate('/', { replace: true })
+      } else {
+        window.alert(`Couldn't delete the user.`)
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
@@ -28,6 +35,7 @@ export function DeleteUserComponent() {
             guideText="Delete your user"
             dialogText="Delete user"
             requestHandler={deleteUserHandler}
+            isLoading={isLoading}
             buttonLayout={
               <Button variant={'destructive'} className="cursor-pointer">
                 <FolderX className="text-white" size={30} />

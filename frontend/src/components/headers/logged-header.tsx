@@ -11,17 +11,24 @@ import {
 } from '../ui/dropdown-menu'
 import { House, LogOut, Menu, User } from 'lucide-react'
 import { Button } from '../ui/button'
+import { useState } from 'react'
 
 export default function LoggedHeader() {
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   async function signOutHandler() {
-    const response = await signOutRequest()
+    try {
+      setIsLoading(true)
+      const response = await signOutRequest()
 
-    if (response.success) {
-      window.alert(response.message)
-      navigate('/')
-    } else {
-      window.alert(`Couldn't sign out successfully.`)
+      if (response.success) {
+        window.alert(response.message)
+        navigate('/')
+      } else {
+        window.alert(`Couldn't sign out successfully.`)
+      }
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
@@ -43,6 +50,7 @@ export default function LoggedHeader() {
               guideText="Sign Out"
               dialogText="Sign Out"
               requestHandler={signOutHandler}
+              isLoading={isLoading}
               buttonLayout={
                 <Button variant={'ghost'} className="cursor-pointer">
                   <LogOut className="text-cyan-700" size={30} />
@@ -81,6 +89,7 @@ export default function LoggedHeader() {
                     guideText="Sign Out"
                     dialogText="Sign Out"
                     requestHandler={signOutHandler}
+                    isLoading={isLoading}
                     buttonLayout={
                       <Button variant={'ghost'} className="cursor-pointer">
                         <LogOut className="text-cyan-700" size={30} />

@@ -1,14 +1,11 @@
-import { useGeneralStore } from '@/stores/general/general.store'
 import { AxiosApi } from '../axios-api'
 import RequestErrorHandler from '../request-error-handler'
 import type { getUsersResponse } from '@/types/request-types/user-types'
 import { useUserStore } from '@/stores/user/user.store'
 
 export async function getUsersRequest() {
-  const { setIsLoading } = useGeneralStore.getState()
   const { setUsers } = useUserStore.getState()
   try {
-    setIsLoading(true)
     const response = await AxiosApi({
       httpMethod: 'get',
       route: '/users/get',
@@ -25,7 +22,5 @@ export async function getUsersRequest() {
   } catch (error) {
     RequestErrorHandler({ error })
     return { success: false }
-  } finally {
-    setIsLoading(false)
   }
 }

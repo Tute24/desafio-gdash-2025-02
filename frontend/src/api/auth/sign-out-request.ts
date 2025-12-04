@@ -8,10 +8,9 @@ import { useWeatherStore } from '@/stores/weather/weather.store'
 export async function signOutRequest() {
   const { setToken } = useAuthStore.getState()
   const resetUser = useUserStore.getState().reset
-  const { setIsLoading, reset } = useGeneralStore.getState()
+  const resetGeneral = useGeneralStore.getState().reset
   const resetWeather = useWeatherStore.getState().reset
   try {
-    setIsLoading(true)
     const response = await AxiosApi({
       httpMethod: 'post',
       route: '/auth/sign-out',
@@ -22,7 +21,7 @@ export async function signOutRequest() {
       setToken(null)
       resetUser()
       resetWeather()
-      reset() // reset general store
+      resetGeneral()
       console.log(responseData.message)
       return { success: true, message: responseData.message }
     }
@@ -31,7 +30,5 @@ export async function signOutRequest() {
   } catch (error) {
     RequestErrorHandler({ error })
     return { success: false }
-  } finally {
-    setIsLoading(false)
   }
 }
