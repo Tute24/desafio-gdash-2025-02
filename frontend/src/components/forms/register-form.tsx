@@ -27,7 +27,7 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<registerType> = async (data) => {
     const response = await registerRequest(data)
     if (response.success) {
-      navigate('portal/dashboard')
+      navigate('/portal/dashboard')
     }
   }
   return (

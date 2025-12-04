@@ -69,9 +69,6 @@ export default function SignInForm() {
                   <Label className="text-md text-stone-700">
                     Enter your password
                   </Label>
-                  <p className="cursor-pointer text-xs text-stone-700 items-center hover:underline hover:text-cyan-700">
-                    Forgot your password?
-                  </p>
                 </div>
                 <Input
                   className="text-md text-cyan-700"
