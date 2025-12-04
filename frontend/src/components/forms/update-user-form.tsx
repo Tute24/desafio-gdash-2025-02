@@ -16,6 +16,7 @@ import { useState } from 'react'
 import { CircleX, Pencil } from 'lucide-react'
 import { Label } from '../ui/label'
 import { updateUserRequest } from '@/api/user/update-user-request'
+import { LoadingSpinner } from '../spinners/loading-spinner'
 
 export type updateUserType = z.infer<typeof updateUserSchema>
 
@@ -219,7 +220,11 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
                       !enableNameUpdate)
                   }
                 >
-                  {isSubmitting || isLoading ? 'Submitting' : 'Submit Update'}
+                  {isSubmitting || isLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    'Submit Update'
+                  )}
                 </Button>
                 <span className="text-sm wrap-break-words pt-2">
                   {statusMessage}

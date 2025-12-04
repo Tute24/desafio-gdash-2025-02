@@ -1,4 +1,5 @@
 // import { LogOut } from 'lucide-react'
+import { LoadingSpinner } from '../spinners/loading-spinner'
 import { Button } from '../ui/button'
 import {
   Dialog,
@@ -52,7 +53,7 @@ export function ModalComponent({
             className="cursor-pointer"
             disabled={isLoading}
           >
-            {guideText}
+            {isLoading ? <LoadingSpinner /> : guideText}
           </Button>
         </DialogFooter>
       </DialogContent>

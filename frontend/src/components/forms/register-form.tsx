@@ -9,6 +9,7 @@ import type z from 'zod'
 import { registerSchema } from '@/schemas/register-schema'
 import { registerRequest } from '@/api/auth/register-request'
 import { useNavigate } from 'react-router-dom'
+import { LoadingSpinner } from '../spinners/loading-spinner'
 
 export type registerType = z.infer<typeof registerSchema>
 
@@ -115,7 +116,7 @@ export default function RegisterForm() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting || isLoading ? 'Submitting' : 'Register'}
+                  {isSubmitting || isLoading ? <LoadingSpinner /> : 'Register'}
                 </Button>
                 <span className="text-red-600 text-sm wrap-break-words pt-2">
                   {statusMessage}

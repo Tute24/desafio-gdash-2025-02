@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signInSchema } from '@/schemas/sign-in-schema'
 import { signInRequest } from '@/api/auth/sign-in-request'
 import { useNavigate } from 'react-router-dom'
+import { LoadingSpinner } from '../spinners/loading-spinner'
 
 export type signInType = z.infer<typeof signInSchema>
 export default function SignInForm() {
@@ -89,7 +90,7 @@ export default function SignInForm() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting || isLoading ? 'Submitting' : 'Sign In'}
+                  {isSubmitting || isLoading ? <LoadingSpinner /> : 'Sign In'}
                 </Button>
                 <span className="text-red-600 text-sm pt-2">
                   {statusMessage}
