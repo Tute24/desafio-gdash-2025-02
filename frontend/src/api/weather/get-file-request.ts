@@ -30,7 +30,7 @@ export async function getFile(type: 'csv' | 'xlsx') {
       a.click()
       a.remove()
       URL.revokeObjectURL(url)
-      return { sucess: true }
+      return { success: true }
     }
 
     return { success: false }
