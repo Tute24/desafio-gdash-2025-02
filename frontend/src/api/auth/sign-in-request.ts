@@ -8,7 +8,7 @@ import { useGeneralStore } from '@/stores/general/general.store'
 
 export async function signInRequest(signInData: signInType) {
   const { setToken } = useAuthStore.getState()
-  const { setId, setName, setEmail } = useUserStore.getState()
+  const { setId, setName, setEmail, setRole } = useUserStore.getState()
   const { setIsLoading, setStatusMessage } = useGeneralStore.getState()
   try {
     setIsLoading(true)
@@ -24,6 +24,7 @@ export async function signInRequest(signInData: signInType) {
       setId(responseData.user.id)
       setName(responseData.user.name)
       setEmail(responseData.user.email)
+      setRole(responseData.user.role)
       console.log(responseData.message)
       setStatusMessage('')
       return { success: true }
