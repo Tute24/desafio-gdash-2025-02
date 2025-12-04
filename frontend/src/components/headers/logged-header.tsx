@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { LogOut, Menu, User } from 'lucide-react'
+import { House, LogOut, Menu, User } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function LoggedHeader() {
@@ -30,16 +30,12 @@ export default function LoggedHeader() {
         <nav className="cursor-pointer flex items-center justify-between flex-row w-full px-5 sm:text-xl font-poppins font-semibold">
           <div>
             <Link to="/portal/dashboard">
-              <div className="hover:underline hover:text-cyan-700">
-                Dashboard
-              </div>
+              <House className="text-cyan-700" size={50} />
             </Link>
           </div>
           <div className="hidden sm:block">
             <Link to="/portal/user-profile">
-              <div className="hover:underline hover:text-cyan-700">
-                My Profile
-              </div>
+              <div className="hover:underline text-cyan-700">My Profile</div>
             </Link>
           </div>
           <div className="hidden sm:block">
@@ -74,7 +70,7 @@ export default function LoggedHeader() {
                   <Button variant={'ghost'}>
                     <User size={30} className="text-cyan-700" />
                     <Link to="/portal/user-profile">
-                      <div className="hover:underline hover:text-cyan-700 text-lg">
+                      <div className="hover:underline text-cyan-700 text-lg">
                         My Profile
                       </div>
                     </Link>
