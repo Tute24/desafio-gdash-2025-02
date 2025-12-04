@@ -15,6 +15,10 @@ export class UpdateUserDto {
   @IsEmail()
   email?: string;
 
+  @IsOptional()
+  @IsString()
+  role?: string;
+
   @ValidateIf((dto) => dto.password !== undefined)
   @IsStrongPassword()
   password?: string;

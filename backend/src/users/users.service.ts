@@ -18,7 +18,7 @@ export class UsersService {
   ) {}
 
   async getUsers() {
-    const users = await this.userModel.find();
+    const users = await this.userModel.find().select('-_id -password');
 
     if (!users)
       throw new InternalServerErrorException(
@@ -77,6 +77,7 @@ export class UsersService {
           {
             sub: user._id.toString(),
             email: body.email,
+            role: user.role,
           },
           secretKey,
           { expiresIn: '1d' },
@@ -89,6 +90,7 @@ export class UsersService {
             id: user._id,
             name: body.name ? body.name : user.name,
             email: body.email,
+            role: user.role,
           },
         };
       } else {

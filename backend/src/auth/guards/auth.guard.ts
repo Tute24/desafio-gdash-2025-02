@@ -13,6 +13,7 @@ export interface RequestWithUser extends Request {
   user: {
     sub: string;
     email: string;
+    role: string;
   };
 }
 
@@ -29,6 +30,7 @@ export class AuthGuard implements CanActivate {
       const decodedToken = jwt.verify(token, process.env.SECRET_KEY) as {
         sub: string;
         email: string;
+        role: string;
       };
       if (!decodedToken.sub)
         throw new UnauthorizedException(

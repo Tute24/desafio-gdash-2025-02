@@ -54,7 +54,9 @@ export class WeatherService {
   }
 
   async getWeatherData() {
-    const weatherData = await this.weatherModel.find();
+    const weatherData = await this.weatherModel
+      .find()
+      .select('-_id -createdAt -updatedAt');
 
     if (weatherData.length === 0)
       throw new NotFoundException(
@@ -63,7 +65,7 @@ export class WeatherService {
 
     return {
       message: 'Weather Data successfully fetched',
-      data: weatherData,
+      data: weatherData[0],
     };
   }
 
