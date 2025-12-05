@@ -34,8 +34,6 @@ export class WeatherService {
       };
     }
 
-    console.log(body.weather.current);
-
     const update = await this.weatherModel.updateOne(
       {},
       {
