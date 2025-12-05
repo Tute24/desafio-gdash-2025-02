@@ -86,6 +86,7 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
                         variant={'ghost'}
                         className="cursor-pointer"
                         type="button"
+                        data-testid="pencil1"
                       >
                         <Pencil size={30} className="text-green-600" />
                       </Button>
@@ -124,6 +125,7 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
                         variant={'ghost'}
                         className="cursor-pointer"
                         type="button"
+                        data-testid="pencil2"
                       >
                         <Pencil size={30} className="text-green-600" />
                       </Button>
@@ -168,6 +170,7 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
                           className="text-md text-cyan-700 font-bold w-full"
                           type="password"
                           {...register('passwordUpdate.password')}
+                          placeholder="Update your password"
                         />
                       </div>
                     </div>
@@ -187,6 +190,7 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
                       className="text-md text-cyan-700"
                       type="password"
                       {...register('passwordUpdate.confirmPassword')}
+                      placeholder="Confirm your password"
                     />
                     {errors.passwordUpdate?.confirmPassword && (
                       <p className="font-inter text-red-600 text-sm wrap-break-words">
