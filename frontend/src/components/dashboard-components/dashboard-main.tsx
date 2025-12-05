@@ -7,22 +7,6 @@ import { TemperatureChart } from './chart/temperature-chart'
 import { InsightsComponent } from './insights/insights-component'
 import { HydrationSpinner } from '../spinners/hydration-spinner'
 
-// const currentAlt = {
-//   dt: '',
-//   temp: 0,
-//   feels_like: 0,
-//   humidity: 0,
-//   wind_speed: 0,
-//   main_weather_status: '',
-//   description: '',
-// }
-
-// const geoAlt = {
-//   name: '',
-//   country: '',
-//   state: '',
-// }
-
 export default function DashboardMain() {
   const current = useWeatherStore((store) => store.current)
   const geo = useWeatherStore((store) => store.geo)
@@ -31,7 +15,10 @@ export default function DashboardMain() {
 
   if (!hasHydrated || !geo || !current) {
     return (
-      <div className="flex justify-center h-screen m-auto">
+      <div
+        className="flex justify-center h-screen m-auto"
+        data-testid="hydration-spinner"
+      >
         <HydrationSpinner />
       </div>
     )
