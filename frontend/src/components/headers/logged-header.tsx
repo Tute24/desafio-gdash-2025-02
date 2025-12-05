@@ -35,7 +35,7 @@ export default function LoggedHeader() {
     <>
       <div className="flex flex-row py-5 bg-neutral-200 max-h-[85px] text-center items-center w-full">
         <nav className="cursor-pointer flex items-center justify-between flex-row w-full px-5 sm:text-xl font-poppins font-semibold">
-          <div>
+          <div data-testid="dashboard-reference">
             <Link to="/portal/dashboard">
               <House className="text-cyan-700" size={50} />
             </Link>
