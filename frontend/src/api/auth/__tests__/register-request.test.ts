@@ -8,7 +8,7 @@ import { useUserStore } from '@/stores/user/user.store'
 import { useGeneralStore } from '@/stores/general/general.store'
 
 import { registerRequest } from '@/api/auth/register-request'
-import { userMock } from '@/api/__mocks__/user.mock'
+import { userMock } from '@/__mocks__/user.mock'
 
 vi.mock('@/api/axios-api')
 vi.mock('@/api/request-error-handler')

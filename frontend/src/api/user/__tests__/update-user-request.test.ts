@@ -7,7 +7,7 @@ import RequestErrorHandler from '@/api/request-error-handler'
 import { useAuthStore } from '@/stores/auth/auth.store'
 import { useUserStore } from '@/stores/user/user.store'
 import { useGeneralStore } from '@/stores/general/general.store'
-import { userMock } from '@/api/__mocks__/user.mock'
+import { userMock } from '@/__mocks__/user.mock'
 
 vi.mock('@/api/axios-api')
 vi.mock('@/api/request-error-handler')

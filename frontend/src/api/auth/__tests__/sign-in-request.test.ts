@@ -7,7 +7,7 @@ import { useAuthStore } from '@/stores/auth/auth.store'
 import { useUserStore } from '@/stores/user/user.store'
 
 import { signInRequest } from '@/api/auth/sign-in-request'
-import { userMock } from '@/api/__mocks__/user.mock'
+import { userMock } from '@/__mocks__/user.mock'
 import { useGeneralStore } from '@/stores/general/general.store'
 
 vi.mock('@/api/axios-api')

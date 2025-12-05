@@ -7,7 +7,7 @@ import RequestErrorHandler from '@/api/request-error-handler'
 import { useGeneralStore } from '@/stores/general/general.store'
 import { useWeatherStore } from '@/stores/weather/weather.store'
 
-import { weatherMock } from '@/api/__mocks__/weather.mock'
+import { weatherMock } from '@/__mocks__/weather.mock'
 
 vi.mock('@/api/axios-api')
 vi.mock('@/api/request-error-handler')
