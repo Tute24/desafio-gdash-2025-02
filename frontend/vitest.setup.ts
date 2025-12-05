@@ -1,8 +1,6 @@
-import '@testing-library/jest-dom/vitest'
+import '@testing-library/dom'
 import { cleanup } from '@testing-library/react'
-import { afterEach, vi } from 'vitest'
-
-vi.mock('zustand')
+import { afterEach } from 'vitest'
 
 afterEach(() => {
   sessionStorage.clear()
