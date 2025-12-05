@@ -2,68 +2,68 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 class CurrentWeather {
-  @Prop()
+  @Prop({ type: String })
   dt: string;
 
-  @Prop()
+  @Prop({ type: Number })
   temp: number;
 
-  @Prop()
+  @Prop({ type: Number })
   feels_like: number;
 
-  @Prop()
+  @Prop({ type: Number })
   humidity: number;
 
-  @Prop()
+  @Prop({ type: Number })
   wind_speed: number;
 
-  @Prop()
+  @Prop({ type: String })
   main_weather_status: string;
 
-  @Prop()
+  @Prop({ type: String })
   description: string;
 }
 
 class DailyForecast {
-  @Prop()
+  @Prop({ type: String })
   dt: string;
 
-  @Prop()
+  @Prop({ type: String })
   summary: string;
 
-  @Prop()
+  @Prop({ type: Number })
   max: number;
 
-  @Prop()
+  @Prop({ type: Number })
   min: number;
 
-  @Prop()
+  @Prop({ type: Number })
   humidity: number;
 
-  @Prop()
+  @Prop({ type: Number })
   wind_speed: number;
 
-  @Prop()
+  @Prop({ type: Number })
   rain: number;
 
-  @Prop()
+  @Prop({ type: Number })
   pop: number;
 
-  @Prop()
+  @Prop({ type: String })
   main: string;
 
-  @Prop()
+  @Prop({ type: String })
   description: string;
 }
 
 class GeoInfo {
-  @Prop()
+  @Prop({ type: String })
   name: string;
 
-  @Prop()
+  @Prop({ type: String })
   country: string;
 
-  @Prop()
+  @Prop({ type: String })
   state: string;
 }
 
