@@ -12,7 +12,10 @@ export function UserPageMain() {
 
   if (!hasHydrated || !name || !email) {
     return (
-      <div className="flex justify-center h-screen m-auto">
+      <div
+        className="flex justify-center h-screen m-auto"
+        data-testid="hydration-spinner"
+      >
         <HydrationSpinner />
       </div>
     )
