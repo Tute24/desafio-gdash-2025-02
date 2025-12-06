@@ -10,6 +10,7 @@ const mockGroqMain = main as Mock<typeof main>;
 
 describe('weatherInisght', () => {
   it('returns weather summarization', async () => {
+    process.env.GROQ_API_KEY = 'key';
     const mockWeatherModel = { find: vi.fn() };
     mockWeatherModel.find.mockResolvedValue([weatherMock]);
     mockGroqMain.mockResolvedValue('insight');
