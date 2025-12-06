@@ -22,6 +22,7 @@ describe('weatherInisght', () => {
   });
 
   it('throws 404 if theres no weather data', async () => {
+    process.env.GROQ_API_KEY = 'key';
     const mockWeatherModel = { find: vi.fn() };
     mockWeatherModel.find.mockResolvedValue(undefined);
     const service = new AIService(mockWeatherModel as any);
