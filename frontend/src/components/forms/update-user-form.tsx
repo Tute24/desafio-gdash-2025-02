@@ -49,7 +49,8 @@ export function UpdateUserForm({ name, email }: UpdateUserFormProps) {
     const response = await updateUserRequest(data)
 
     if (response.success) {
-      window.alert('user successfully updated')
+      window.alert('user successfully updated, the page will reload')
+      window.location.reload()
     }
   }
   return (
