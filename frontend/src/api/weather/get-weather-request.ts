@@ -16,7 +16,7 @@ export async function getWeatherRequest() {
 
     if (response.status === 200) {
       const responseData = response.data as GetWeatherResponse
-      console.log(responseData.message, console.log(responseData.data.weather))
+      console.log(responseData.message)
       setCurrent(responseData.data.weather.current)
       setDaily(responseData.data.weather.daily)
       setGeo(responseData.data.weather.geo)

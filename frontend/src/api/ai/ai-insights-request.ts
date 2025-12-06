@@ -13,7 +13,6 @@ export async function getAiInsights() {
 
     if (response.status === 200) {
       const responseData = response.data as AIInsightsResponse
-      console.log(response.data)
       setAiInsights(responseData.weatherSummarization)
       return { success: true }
     }
