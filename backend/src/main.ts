@@ -1,0 +1,17 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { SeedService } from './seed.service';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    credentials: true,
+  });
+  const seedService = app.get(SeedService);
+  await seedService.createStandardUser();
+  await app.listen(process.env.PORT ?? 3002, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
+  });
+}
+bootstrap();

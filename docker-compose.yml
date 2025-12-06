@@ -1,0 +1,86 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    # Healthcheck para garantir que o serviço está totalmente pronto
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  collector:
+    build: 
+      context: ./python-collector
+      dockerfile: Dockerfile
+    env_file:
+      - ./python-collector/.env
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+      worker:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ./go-worker
+      dockerfile: Dockerfile
+    env_file:
+      - ./go-worker/.env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "echo", "ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  mongo:
+    image: mongo
+    container_name: mongo_db
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_started
+  
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+
+
+volumes:
+  rabbitmq_data:
+  mongo_data:
