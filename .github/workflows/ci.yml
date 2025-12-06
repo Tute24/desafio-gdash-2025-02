@@ -75,7 +75,7 @@ jobs:
         run: npm ci
 
       - name: Run Backend Tests
-        run: npm run vitest -- --run
+        run: npm run test
 
   frontend-tests:
     name: Frontend Tests
@@ -99,4 +99,4 @@ jobs:
         run: npm ci
 
       - name: Run Frontend Tests
-        run: npm run vitest -- --run
+        run: npm run test
