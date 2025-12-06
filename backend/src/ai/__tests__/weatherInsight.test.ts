@@ -4,7 +4,9 @@ import { AIService } from '../ai.service';
 import { weatherMock } from 'src/__mocks__/weatherMock';
 import { NotFoundException } from '@nestjs/common';
 
-vi.mock('../groq/groq-setup');
+vi.mock('../groq/groq-setup', () => ({
+  main: vi.fn(),
+}));
 
 const mockGroqMain = main as Mock<typeof main>;
 
