@@ -2,9 +2,9 @@ name: CI - Unitary tests and lint for Frontend and Backend folders
 
 on:
   push:
-    branches: [ "main", "develop", "feature/CI" ]
+    branches: [ "main", "develop"]
   pull_request:
-    branches: [ "main", "develop", "feature/CI" ]
+    branches: [ "main", "develop"]
 
 jobs:
   backend-lint:
