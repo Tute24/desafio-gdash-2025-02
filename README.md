@@ -57,6 +57,8 @@ A aplicação tem o seguinte fluxo:
 - TailwindCSS
 - shadcn/ui
 - vitest
+- zod para validação
+- react-hook-form para forms
 
 ### Worker / Collector
 
@@ -141,6 +143,7 @@ O env.example está na raiz do projeto
 - `POST /auth/sign-in` - rota de sign in com email e senha
 - `POST /auth/create-user` - rota de ciração do user com nome, email, senha, e confirmação de senha (default role é 'user')
 - `POST /auth/sign-up` - rota de sign out com authguard
+* Há também uma seed no projeto que, ao iniciar o serviço da API, um usuário default é criado, com role 'admin', caso o banco esteja vazio
 
 ### **Clima** - weather domain
 
@@ -167,6 +170,7 @@ O env.example está na raiz do projeto
 - `/register` → Registrar usuário
 - `/portal/dashboard` → Dashboard climático
 - `/portal/user-profile` → Gestão de usuários
+* Para logar com o user padrão, o email é user@email.com e a senha é Teste12345!
 
 ---
 
