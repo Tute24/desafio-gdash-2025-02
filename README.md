@@ -221,10 +221,17 @@ docker-compose up --build
 
 ---
 
-## 🎥 Vídeo Explicativo (Opcional)
+## 🎥 Vídeo Explicativo 
+
+🔗 Vídeo de apresentação: https://youtu.be/snlLJx2Q2Tc
+
 
 ---
 
 ## 📄 Licença
 
 Este projeto foi desenvolvido exclusivamente para o processo seletivo GDASH 2025/02 e não possui licença comercial.
+
+## @ Meu E-mail
+
+arthurtute01@gmail.com
