@@ -205,6 +205,9 @@ Cobertura incluída para:
 ### API e Frontend
 
 Check de lint e testes via github actions (.github/workflows/ci.yml)
+
+<img width="1869" height="736" alt="image" src="https://github.com/user-attachments/assets/b859e74b-9c54-4599-9299-031ee9e54b58" />
+
 ---
 
 ## 📝 Instruções
